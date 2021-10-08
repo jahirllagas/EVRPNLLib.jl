@@ -1,14 +1,16 @@
 module EVRPNLData
 
-export Data, readEVRPNL
+import Base: show
+
+export Data, loadEVRPNL
 
 const data_path = joinpath(pkgdir(EVRPNLData), "data")
 
+using LinearAlgebra
 using EzXML
 
-const EPS = 1e-7
-
 include("Data.jl")
+include("Util.jl")
 include("Loader.jl")
 
 end

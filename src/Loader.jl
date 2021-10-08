@@ -1,8 +1,4 @@
-
-using EzXML
-include("CoordinatePlane.jl")
-
-function readInstance(instance::String)
+function readEVRPNL(instance::String)
     doc = readxml("Instances/" * instance * ".xml")
     primates = root(doc)
 
@@ -76,4 +72,17 @@ function readInstance(instance::String)
     end
     matrix_dist = getMatrixDist(coordX, coordY)
     return 0
+end
+
+function getMatrixDist(cx::Vector{Float64}, cy::Vector{Float64})
+
+    matrix = zeros(Float64, length(cx), length(cx))
+    for i in 1:length(cx)
+        for j in 1:length(cx)
+            x = [cx[i], cy[i]]
+            y = [cx[j], cy[j]]
+            matrix[i, j] = sqrt(sum((x - y) .^ 2))
+        end
+    end
+    return matrix
 end

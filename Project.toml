@@ -1,2 +1,6 @@
+name = "EVRPNLData"
+authors = ["Jahir Llagas and Rafael Martinelli"]
+version = "0.1.0"
+
 [deps]
 EzXML = "8f5d6c58-4d21-5cfd-889c-e3ad7ee6a615"

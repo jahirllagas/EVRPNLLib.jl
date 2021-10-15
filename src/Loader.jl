@@ -1,12 +1,13 @@
 function loadEVRPNL(instance::Symbol)
-    file_name = joinpath(data_path, string(instance) * ".xml")
+    file_name = joinpath(data_path, string(instance) * ".zip")
     if !isfile(file_name)
         println("File $(string(instance)) not found!")
         return nothing
     end
-    # file = ZipFile.Reader(file_name)
-    # doc = readxml(file.files[1])
-    doc = readxml(file_name)
+    file = ZipFile.Reader(file_name)
+    raw = read(file.files[1], String)
+    doc = parsexml(raw)
+    # doc = readxml(file_name)
 
     name = ""
     nodes = Node[]

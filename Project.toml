@@ -1,6 +1,16 @@
-name = "EVRPNLData"
+name = "EVRPNLLib"
+uuid = "4388aef5-ff97-4bbe-a40a-94dcbd843ed7"
 authors = ["Jahir Llagas and Rafael Martinelli"]
 version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
 
 [deps]
 EzXML = "8f5d6c58-4d21-5cfd-889c-e3ad7ee6a615"

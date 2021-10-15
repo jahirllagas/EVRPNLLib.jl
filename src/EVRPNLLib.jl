@@ -8,6 +8,7 @@ const data_path = joinpath(pkgdir(EVRPNLLib), "data")
 
 using LinearAlgebra
 using EzXML
+using ZipFile
 
 include("Data.jl")
 include("Util.jl")

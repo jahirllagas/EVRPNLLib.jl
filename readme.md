@@ -67,7 +67,7 @@ For example, to load instance `tc0c10s2ct1.xml`:
 data = loadEVRPNL(:tc0c10s2ct1)
 ```
 
-See the [full list](https://github.com/rafaelmartinelli/BPPLib.jl/tree/main/data).
+See the [full list](https://github.com/jahirllagas/EVRPNLLib.jl/tree/main/data).
 
 Related links:
 - [EVRP instances on the Vehicle Routing Problem Repository webpage](http://www.vrp-rep.org/datasets/item/2016-0020.html)

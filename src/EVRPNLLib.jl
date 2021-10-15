@@ -1,10 +1,10 @@
-module EVRPNLData
+module EVRPNLLib
 
 import Base: show
 
 export Data, loadEVRPNL
 
-const data_path = joinpath(pkgdir(EVRPNLData), "data")
+const data_path = joinpath(pkgdir(EVRPNLLib), "data")
 
 using LinearAlgebra
 using EzXML

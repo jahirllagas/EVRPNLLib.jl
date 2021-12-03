@@ -1,7 +1,7 @@
 # EVRPNLLib.jl
 
-[![Build Status](https://github.com/jahirllagas/EVRPNLLib.jl/workflows/CI/badge.svg)](https://github.com/jahirllagas/EVRPNLLib.jl/actions)
-[![Coverage](https://codecov.io/gh/jahirllagas/EVRPNLLib.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/jahirllagas/EVRPNLLib.jl)
+<!-- [![Build Status](https://github.com/jahirllagas/EVRPNLLib.jl/workflows/CI/badge.svg)](https://github.com/jahirllagas/EVRPNLLib.jl/actions)
+[![Coverage](https://codecov.io/gh/jahirllagas/EVRPNLLib.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/jahirllagas/EVRPNLLib.jl) -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 This package reads `.xml` data files in `e-vrp-nl` format for Electric Vehicle Problem with Nonlinear Charging Function (EVRPNL) instances and returns `EVRPNLData` type:
@@ -67,7 +67,7 @@ For example, to load instance `tc0c10s2ct1.xml`:
 data = loadEVRPNL(:tc0c10s2ct1)
 ```
 
-See the [full list](https://github.com/rafaelmartinelli/BPPLib.jl/tree/main/data).
+See the [full list](https://github.com/jahirllagas/EVRPNLLib.jl/tree/main/data).
 
 Related links:
 - [EVRP instances on the Vehicle Routing Problem Repository webpage](http://www.vrp-rep.org/datasets/item/2016-0020.html)

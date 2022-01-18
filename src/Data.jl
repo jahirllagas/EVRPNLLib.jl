@@ -37,6 +37,12 @@ struct Vehicle
     functions::Vector{Function}
 end
 
+struct Best
+    value::Float64
+    fleet::Int64
+    time::Float64
+end
+
 struct Data
     name::String
     nodes::Vector{Node}
@@ -47,9 +53,13 @@ struct Data
     stations::Vector{Node}
 
     distances::Matrix{Float64}
+
+    best::Best
 end
 
 function Base.show(io::IO, data::Data)
-    print(io, "EVRPNL Data $(data.name)")
-    print(io, " ($(length(data.customers)) customers, $(length(data.stations)) stations)")
+    print(io, "EVRPNL $(data.name)")
+    if data.best.value != Inf
+        print(io, " [BKS = $(data.best.value), v = $(data.best.fleet)]")
+    end
 end

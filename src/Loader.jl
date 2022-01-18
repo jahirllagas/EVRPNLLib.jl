@@ -39,7 +39,9 @@ function loadEVRPNL(instance::Symbol)
     stations = [ node for node in nodes if node.type == :station ]
     distances = getDistances(nodes)
 
-    return Data(name, nodes, fleet, depot, customers, stations, distances)
+    best = Best(loadBounds(name)...)
+
+    return Data(name, nodes, fleet, depot, customers, stations, distances, best)
 end
 
 function loadNodes(nodes_tag)

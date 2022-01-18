@@ -1,7 +1,7 @@
 name = "EVRPNLLib"
 uuid = "4388aef5-ff97-4bbe-a40a-94dcbd843ed7"
 authors = ["Jahir Llagas and Rafael Martinelli"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 EzXML = "8f5d6c58-4d21-5cfd-889c-e3ad7ee6a615"
@@ -9,9 +9,9 @@ LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 ZipFile = "a5390f91-8eb1-5f08-bee0-b1d1ffed6cea"
 
 [compat]
-julia = "1"
-ZipFile = "0.9"
 EzXML = "1"
+ZipFile = "0.9"
+julia = "1.6"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

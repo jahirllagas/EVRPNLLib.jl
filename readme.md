@@ -16,6 +16,8 @@ struct EVRPNLData
     stations  ::Vector{Node}    # Stations
 
     distances ::Matrix{Float64} # Distance matrix
+
+    best      ::Best            # BKS info
 end
 ```
 
@@ -54,6 +56,14 @@ where `Piece`:
 struct Piece
     battery_level ::Float64 # Battery level (wh)
     charging_time ::Float64 # Charging time (h)
+end
+```
+
+where `Best`:
+```julia
+struct Best
+    value::Float64 # Best value
+    fleet::Int64   # Fleet used
 end
 ```
 

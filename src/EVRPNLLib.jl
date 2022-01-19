@@ -6,6 +6,7 @@ export Data, loadEVRPNL
 export Solution, Route
 export addNode!, addStation!, addRoute!
 export writeSolution
+export validateSolution
 
 const data_path = joinpath(pkgdir(EVRPNLLib), "data")
 
@@ -19,5 +20,6 @@ include("Loader.jl")
 include("Machine.jl")
 include("Solution.jl")
 include("Writter.jl")
+include("Validator.jl")
 
 end

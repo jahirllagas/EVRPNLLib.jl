@@ -24,7 +24,7 @@ function getXML(solution::Solution)
                 charge_tag.content = node.charge
                 link!(node_tag, charge_tag)
             else
-                error("Unknown node type.")
+                @error "Unknown node type."
             end
             node_tag["id"] = node.node.id - 1
             link!(route_tag, node_tag)

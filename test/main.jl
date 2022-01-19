@@ -21,3 +21,4 @@ end
 println(solution)
 
 writeSolution(solution, data.name * ".xml")
+validateSolution(solution)

@@ -18,10 +18,10 @@ function getXML(solution::Solution)
             elseif node.node.type == :station
                 node_tag = ElementNode("station")
                 wait_tag = ElementNode("wait")
-                wait_tag.content = node.wait
+                wait_tag.content = node.waiting_time
                 link!(node_tag, wait_tag)
                 charge_tag = ElementNode("charge")
-                charge_tag.content = node.charge
+                charge_tag.content = node.charged_energy
                 link!(node_tag, charge_tag)
             else
                 @error "Unknown node type."

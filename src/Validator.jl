@@ -6,10 +6,12 @@ function validateSolution(solution::Solution)
     feasible = true
     for r in 1:length(solution.routes)
         route = solution.routes[r]
-        battery = data.vehicle.battery_capacity
+        soc = data.vehicle.battery_capacity
         time = 0.0
         for n in 2:length(route)
             node = route[n].node
+            waiting_time = route[n].waiting_time
+            charged_energy = route[n].charged_energy
             
             if node.type == :customer && visited[node.id]
                 println("Node already visited: $node.")
@@ -18,17 +20,27 @@ function validateSolution(solution::Solution)
             visited[node.id] = true
 
             last = route[n - 1].node
-            dist = data.distances[node.id, last.id]
-            time += dist / data.vehicle.speed_factor
-            battery -= dist * data.vehicle.consumption_rate
+            dist = data.distances[last.id, node.id]
+            time += dist / data.vehicle.speed_factor + waiting_time#+ node.service_time
+            soc -= dist * data.vehicle.consumption_rate
 
-            if battery < 1e-5
+            if soc < -EPS
                 println("Battery underflow on route $r, pos $n, node $(node.id).")
                 feasible = false
             end
 
             if node.type == :station
-                #TODO: calulcate battery recharge.
+                for func in data.vehicle.functions
+                    if func.cs_type == node.cs_type
+                        time += getTime(func, soc, soc + charged_energy)
+                    end
+                end
+                soc += charged_energy
+
+                if soc - data.vehicle.battery_capacity > EPS
+                    println("Battery overflow on route $r, pos $n, station $(node.id).")
+                    feasible = false
+                end
             end
         end
     

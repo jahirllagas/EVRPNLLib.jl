@@ -18,16 +18,6 @@ struct Node
     end
 end
 
-struct Piece
-    battery_level::Float64
-    charging_time::Float64
-end
-
-struct Function
-    cs_type::Symbol
-    pieces::Vector{Piece}
-end
-
 struct Vehicle
     id::Int64
     max_travel_time::Float64

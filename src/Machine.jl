@@ -19,7 +19,7 @@ struct Machine
         elseif Sys.iswindows()
             os = "Windows " * string(Sys.windows_version())
         else
-            error("OS not supported. Ask the developers in GitHub.")
+            @error "OS not supported. Ask the developers in GitHub."
         end
 
         return new(cpu, cores, ram, language, os)

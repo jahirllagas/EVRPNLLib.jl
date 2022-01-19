@@ -1,15 +1,7 @@
 struct RouteNode
     node::Node
-    charge::Float64
-    wait::Float64
-
-    function RouteNode(node::Node)
-        return new(node, 0.0, 0.0)
-    end
-
-    function RouteNode(node::Node, charge::Float64, wait::Float64 = 0.0)
-        return new(node, charge, wait)
-    end
+    charged_energy::Float64
+    waiting_time::Float64
 end
 
 const Route = Vector{RouteNode}
@@ -34,9 +26,9 @@ function addRoute!(solution::Solution, route::Route)
 end
 
 function addNode!(route::Route, node::Node)
-    push!(route, RouteNode(node))
+    push!(route, RouteNode(node, 0.0, 0.0))
 end
     
-function addStation!(route::Route, station::Node, charge::Float64, wait::Float64 = 0.0)
-    push!(route, RouteNode(station, charge, wait))
+function addStation!(route::Route, station::Node, charged_energy::Float64, waiting_time::Float64 = 0.0)
+    push!(route, RouteNode(station, charged_energy, waiting_time))
 end

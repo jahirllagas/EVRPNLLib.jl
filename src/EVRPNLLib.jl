@@ -3,7 +3,9 @@ module EVRPNLLib
 import Base: show
 
 export Data, loadEVRPNL
-export Solution, Route, RouteNode, writeSolution
+export Solution, Route
+export addNode!, addStation!, addRoute!
+export writeSolution
 
 const data_path = joinpath(pkgdir(EVRPNLLib), "data")
 
@@ -14,6 +16,7 @@ using ZipFile
 include("Data.jl")
 include("Util.jl")
 include("Loader.jl")
+include("Machine.jl")
 include("Solution.jl")
 include("Writter.jl")
 

@@ -5,6 +5,7 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 This package reads `.xml` data files in `e-vrp-nl` format for Electric Vehicle Problem with Nonlinear Charging Function (EVRPNL) instances and returns `EVRPNLData` type:
+
 ```julia
 struct EVRPNLData
     name      ::String          # Instance name
@@ -22,6 +23,7 @@ end
 ```
 
 where `Node`:
+
 ```julia
 struct Node
     id           ::Int64           # Sequential identifier
@@ -33,17 +35,19 @@ end
 ```
 
 where `Vechile`:
+
 ```julia
 struct Vehicle
-    max_travel_time  ::Float64          # Maximum travel time
-    speed_factor     ::Float64          # Speed factor (km/h)
-    consumption_rate ::Float64          # Battery's energy consumption rate (wh/km)
-    battery_capacity ::Float64          # Vehicle's total battery capacity (wh)
-    functions        ::Vector{Function} # Recharging functions
+    max_travel_time  ::Float64                # Maximum travel time
+    speed_factor     ::Float64                # Speed factor (km/h)
+    consumption_rate ::Float64                # Battery's energy consumption rate (wh/km)
+    battery_capacity ::Float64                # Vehicle's total battery capacity (wh)
+    functions        ::Dict{Symbol, Function} # Recharging functions (cs_type as index)
 end
 ```
 
 where `Function`:
+
 ```julia
 struct Function
     cs_type ::Symbol        # Station type (:slow, :normal, :fast)
@@ -52,6 +56,7 @@ end
 ```
 
 where `Piece`:
+
 ```julia
 struct Piece
     battery_level ::Float64 # Battery level (wh)
@@ -60,6 +65,7 @@ end
 ```
 
 where `Best`:
+
 ```julia
 struct Best
     value::Float64 # Best value
@@ -68,11 +74,13 @@ end
 ```
 
 To install:
+
 ```julia
 ] add https://github.com/jahirllagas/EVRPNLLib.jl
 ```
 
 For example, to load instance `tc0c10s2ct1.xml`:
+
 ```julia
 data = loadEVRPNL(:tc0c10s2ct1)
 ```
@@ -80,5 +88,6 @@ data = loadEVRPNL(:tc0c10s2ct1)
 See the [full list](https://github.com/jahirllagas/EVRPNLLib.jl/tree/master/data).
 
 Related links:
+
 - [EVRP instances on the Vehicle Routing Problem Repository webpage](http://www.vrp-rep.org/datasets/item/2016-0020.html)
 - [EVRP DIMACS Implementation Challenge webpage](http://dimacs.rutgers.edu/programs/challenge/vrp/evrp/)

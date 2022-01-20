@@ -3,6 +3,7 @@ module EVRPNLLib
 import Base: show
 
 export Data, loadEVRPNL
+export getTime, getSOC
 export Solution, Route
 export addNode!, addStation!, addRoute!
 export writeSolution

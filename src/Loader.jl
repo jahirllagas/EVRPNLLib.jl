@@ -114,7 +114,7 @@ function loadVehicle(vehicle_tag)
 end
 
 function loadFunctions(functions_tag)
-    functions = Function[]
+    functions = Dict{Symbol, Function}()
 
     for function_tag in eachelement(functions_tag)
         pieces = Piece[]
@@ -138,7 +138,7 @@ function loadFunctions(functions_tag)
             push!(pieces, Piece(battery_level, charging_time))
         end
 
-        push!(functions, Function(cs_type, pieces))
+        functions[cs_type] = Function(cs_type, pieces)
     end
 
     return functions

@@ -30,11 +30,8 @@ function validateSolution(solution::Solution)
             end
 
             if node.type == :station
-                for func in data.vehicle.functions
-                    if func.cs_type == node.cs_type
-                        time += getTime(func, soc, soc + charged_energy)
-                    end
-                end
+                func = data.vehicle.functions[node.cs_type]
+                time += getTime(func, soc, soc + charged_energy)
                 soc += charged_energy
 
                 if soc - data.vehicle.battery_capacity > EPS

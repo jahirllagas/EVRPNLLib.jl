@@ -24,7 +24,7 @@ struct Vehicle
     speed_factor::Float64
     consumption_rate::Float64
     battery_capacity::Float64
-    functions::Vector{Function}
+    functions::Dict{Symbol, Function}
 end
 
 struct Best

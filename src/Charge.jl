@@ -13,13 +13,13 @@ function findPieceBySOC(func::Function, soc::Float64)
     if soc > -EPS
         last = 0.0
         for p in 2:length(func.pieces)
-            if soc - last > -EPS && soc - func.pieces[p].battery_level < -EPS
+            if soc - last > -EPS && soc - func.pieces[p].battery_level < EPS
                 return p
             end
             last = func.pieces[p].battery_level
         end
     end
-    @error "SOC out of function bounds."
+    @error "SOC out of function bounds: $soc"
 end
 
 function getBattPieceSize(func::Function, p::Int64)

@@ -6,6 +6,8 @@ function loadEVRPNL(instance::Symbol)
     end
     file = ZipFile.Reader(file_name)
     raw = read(file.files[1], String)
+    close(file)
+
     doc = parsexml(raw)
     # doc = readxml(file_name)
 

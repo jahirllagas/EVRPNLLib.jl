@@ -6,10 +6,21 @@ struct Machine
     os::String
 
     function Machine()
-        cpu = string(Sys.cpu_info()[1])
-        range2 = findfirst("GHz", cpu)
-        range1 = findlast(" ", cpu[1:range2.start])
-        cpu = parse(Float64, cpu[(range1.stop + 1):(range2.start - 1)])
+        info = split(string(Sys.cpu_info()[1]))
+        cpu = ""
+        for i in eachindex(info)
+            if info[i] == "GHz"
+                cpu = parse(Float64, info[i - 1])
+                break
+            elseif info[i] == "MHz"
+                cpu = parse(Float64, info[i - 1]) / 1000.0
+                break
+            end
+        end
+
+        if cpu == ""
+            @error "CPU frequency not found. Ask the developers in GitHub."
+        end
 
         cores = Sys.CPU_THREADS
         ram = Sys.total_memory() / 2^30

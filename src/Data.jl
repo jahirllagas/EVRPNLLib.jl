@@ -47,6 +47,10 @@ struct Data
     best::Best
 end
 
+nn(data::Data) = length(data.nodes)
+nc(data::Data) = length(data.customers)
+ns(data::Data) = length(data.stations)
+
 function Base.show(io::IO, data::Data)
     print(io, "EVRPNL $(data.name)")
     if data.best.value != Inf

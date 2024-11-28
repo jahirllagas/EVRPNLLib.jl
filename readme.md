@@ -89,7 +89,7 @@ data = loadEVRPNL(:tc0c10s2ct1)
 
 See the [full list](https://github.com/jahirllagas/EVRPNLLib.jl/tree/master/data).
 
-If you want to generate new stations from existing customers (usefull for ELRPNL), pass as first argument, and if you want to replicate the stations (usefull for MIP models), pass as second argument.
+If you want to generate new stations from existing customers (useful for ELRPNL), pass as first argument, and if you want to replicate the stations (useful for MIP models), pass as second argument.
 
 ```julia
 data = loadEVRPNL(:tc0c10s2ct1, 3, 2)

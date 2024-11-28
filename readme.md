@@ -26,13 +26,13 @@ where `Node`:
 
 ```julia
 struct Node
-    id           ::Int64           # Sequential identifier
-    type         ::Symbol          # Type (:depot, :customer, :station)
-    coordinates  ::Vector{Float64} # 2D coordinates
-    cs_type      ::Symbol          # Station type (:nothing, :slow, :normal, :fast)
-    service_time ::Float64         # Service time
-    base_node    ::{Node, Nothing} # Original node if this one is a replica
-    replicas     ::Vector{Node}    # Replicas generated using this node
+    id           ::Int64                 # Sequential identifier
+    type         ::Symbol                # Type (:depot, :customer, :station)
+    coordinates  ::Vector{Float64}       # 2D coordinates
+    cs_type      ::Symbol                # Station type (:nothing, :slow, :normal, :fast)
+    service_time ::Float64               # Service time
+    base_node    ::Vector{Node, Nothing} # Original node if this one is a replica
+    replicas     ::Vector{Node}          # Replicas generated using this node
 end
 ```
 

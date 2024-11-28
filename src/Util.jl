@@ -19,3 +19,12 @@ function loadBounds(name::String)
         return Inf, -1, typemax(Int64)
     end
 end
+
+digitToInt(digit::Char)::Int64 = Int64(digit) - Int64('0')
+
+function createGenerator(name::String, num_nodes::Int64)::MersenneTwister
+    lastDigit = digitToInt(name[end])
+    digit3 = digitToInt(name[3])
+    seed = lastDigit + digit3 + num_nodes - 1
+    return MersenneTwister(seed)
+end

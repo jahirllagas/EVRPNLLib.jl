@@ -1,4 +1,4 @@
-function loadEVRPNL(instance::Symbol)
+function loadEVRPNL(instance::Symbol, new_stations::Int64 = 0, station_replicas::Int64 = 0)
     file_name = joinpath(data_path, string(instance) * ".zip")
     if !isfile(file_name)
         println("File $(string(instance)) not found!")
@@ -34,6 +34,14 @@ function loadEVRPNL(instance::Symbol)
                 end
             end
         end
+    end
+
+    if new_stations > 0
+        nodes = addNewStations(name, nodes, new_stations)
+    end
+
+    if station_replicas > 0
+        nodes = replicateStations(nodes, station_replicas)
     end
 
     depot = nodes[findfirst(x -> x.type == :depot, nodes)]
@@ -155,4 +163,46 @@ function loadRequests(requests_tag, nodes::Vector{Node})
             end
         end
     end
+end
+
+function addNewStations(name::String, nodes::Vector{Node}, n_new_stations::Int64)::Vector{Node}
+    rng = createGenerator(name, length(nodes))
+    C = [ node.id for node in nodes if node.type == :customer ]
+
+    to_stations = []
+    for _ in 1:n_new_stations
+        to_station = rand(rng, C)
+        push!(to_stations, to_station)
+        deleteat!(C, indexin(to_station, C))
+    end
+    sort!(to_stations)
+
+    stations = [ node for node in nodes if node.type == :station ]
+    cs_types = Dict(:fast => 1, :normal => 2, :slow => 3)
+    cs_type = :nothing
+    cs_type_id = 0
+    for station in stations
+        if cs_types[station.cs_type] > cs_type_id
+            cs_type = station.cs_type
+            cs_type_id = cs_types[station.cs_type]
+        end
+    end
+
+    for (i, to_station) in enumerate(to_stations)
+        push!(nodes, Node(length(nodes) + 1, :station, nodes[to_station].coordinates, cs_type, 0.0, nodes[to_station]))
+        push!(nodes[to_station].replicas, nodes[end])
+    end
+
+    return nodes
+end
+
+function replicateStations(nodes::Vector{Node}, n_replicas::Int64)::Vector{Node}
+    stations = [ node for node in nodes if node.type == :station ]
+    for station in stations
+        for _ in 1:n_replicas
+            push!(nodes, Node(length(nodes) + 1, :station, station.coordinates, station.cs_type, station.service_time, station))
+            push!(station.replicas, nodes[end])
+        end
+    end
+    return nodes
 end

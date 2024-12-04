@@ -202,6 +202,9 @@ function replicateStations(nodes::Vector{Node}, n_replicas::Int64)::Vector{Node}
         for _ in 1:n_replicas
             push!(nodes, Node(length(nodes) + 1, :station, station.coordinates, station.cs_type, station.service_time, station))
             push!(station.replicas, nodes[end])
+            if station.base_node !== nothing
+                push!(station.base_node.replicas, nodes[end])
+            end
         end
     end
     return nodes

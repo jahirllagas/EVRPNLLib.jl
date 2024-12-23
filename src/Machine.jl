@@ -20,6 +20,7 @@ struct Machine
 
         if cpu == ""
             @error "CPU frequency not found. Ask the developers in GitHub."
+            cpu = 0.0
         end
 
         cores = Sys.CPU_THREADS

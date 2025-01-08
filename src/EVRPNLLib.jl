@@ -2,7 +2,7 @@ module EVRPNLLib
 
 import Base: show
 
-export Data, Node, nn, nc, ns, loadEVRPNL
+export Data, Node, nn, nc, ns, loadEVRPNL, loadELRPNL
 export getTime, getTimeBySOC, findPieceByTime
 export getSOC, getSOCByTime, findPieceBySOC
 export Solution, Route
@@ -14,7 +14,6 @@ const data_path = joinpath(pkgdir(EVRPNLLib), "data")
 const EPS = 1e-5
 
 using LinearAlgebra
-using Random
 using EzXML
 using ZipFile
 

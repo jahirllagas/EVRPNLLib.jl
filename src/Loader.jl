@@ -1,4 +1,34 @@
-function loadEVRPNL(instance::Symbol, new_stations::Int64 = 0, station_replicas::Int64 = 0)
+function loadEVRPNL(instance::Symbol, station_replicas::Int64 = 0)::Union{Data, Nothing}
+    doLoadInstance(instance, Int64[], station_replicas)
+end
+
+function loadELRPNL(instance::Symbol, station_replicas::Int64 = 0)::Union{Data, Nothing}
+    file_name = joinpath(data_path, "elrpnl-stations.txt")
+    if !isfile(file_name)
+        println("File elrpnl-stations.txt not found!")
+        return nothing
+    end
+
+    new_stations = Int64[]
+    raw = split(read(file_name, String))
+    i = 1
+    while i <= length(raw)
+        if raw[i] == string(instance)
+            i += 1
+            num = parse(Int64, raw[i])
+            for _ in 1:num
+                i += 1
+                push!(new_stations, parse(Int64, raw[i]))
+            end
+            break
+        end
+        i += 1
+    end
+
+    doLoadInstance(instance, new_stations, station_replicas)
+end
+
+function doLoadInstance(instance::Symbol, new_stations::Vector{Int64}, station_replicas::Int64)::Union{Data, Nothing}
     file_name = joinpath(data_path, string(instance) * ".zip")
     if !isfile(file_name)
         println("File $(string(instance)) not found!")
@@ -12,6 +42,7 @@ function loadEVRPNL(instance::Symbol, new_stations::Int64 = 0, station_replicas:
     # doc = readxml(file_name)
 
     name = ""
+    type = :EVRPNL
     nodes = Node[]
     fleet = Vehicle[]
 
@@ -36,7 +67,8 @@ function loadEVRPNL(instance::Symbol, new_stations::Int64 = 0, station_replicas:
         end
     end
 
-    if new_stations > 0
+    if !isempty(new_stations)
+        type = :ELRPNL
         nodes = addNewStations(name, nodes, new_stations)
     end
 
@@ -51,7 +83,7 @@ function loadEVRPNL(instance::Symbol, new_stations::Int64 = 0, station_replicas:
 
     best = Best(loadBounds(name)...)
 
-    return Data(name, nodes, fleet, depot, customers, stations, distances, best)
+    return Data(name, nodes, fleet, depot, customers, stations, distances, type, best)
 end
 
 function loadNodes(nodes_tag)
@@ -165,18 +197,7 @@ function loadRequests(requests_tag, nodes::Vector{Node})
     end
 end
 
-function addNewStations(name::String, nodes::Vector{Node}, n_new_stations::Int64)::Vector{Node}
-    rng = createGenerator(name, length(nodes))
-    C = [ node.id for node in nodes if node.type == :customer ]
-
-    to_stations = []
-    for _ in 1:n_new_stations
-        to_station = rand(rng, C)
-        push!(to_stations, to_station)
-        deleteat!(C, indexin(to_station, C))
-    end
-    sort!(to_stations)
-
+function addNewStations(name::String, nodes::Vector{Node}, to_stations::Vector{Int64})::Vector{Node}
     stations = [ node for node in nodes if node.type == :station ]
     cs_types = Dict(:fast => 1, :normal => 2, :slow => 3)
     cs_type = :nothing

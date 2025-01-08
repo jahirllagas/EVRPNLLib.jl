@@ -55,11 +55,13 @@ struct Data
 
     distances::Matrix{Float64}
 
+    type::Symbol
+
     best::Best
 end
 
 function Base.show(io::IO, data::Data)
-    print(io, "EVRPNL $(data.name)")
+    print(io, "$(data.type) $(data.name)")
     if data.best.value != Inf
         print(io, " [BKS = $(data.best.value), v = $(data.best.fleet)]")
     end

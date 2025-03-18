@@ -44,7 +44,7 @@ struct Best
     time::Float64
 end
 
-struct Data
+mutable struct Data
     name::String
     nodes::Vector{Node}
     vehicle::Vehicle

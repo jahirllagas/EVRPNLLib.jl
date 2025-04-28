@@ -5,7 +5,7 @@ import Base: show
 export Data, Node, nn, nc, ns, loadEVRPNL, loadELRPNL
 export getTime, getTimeBySOC, findPieceByTime
 export getSOC, getSOCByTime, findPieceBySOC
-export Solution, Route
+export Solution, Route, Machine
 export addNode!, addStation!, addRoute!
 export writeSolution
 export validateSolution

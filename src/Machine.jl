@@ -19,7 +19,7 @@ struct Machine
         end
 
         if cpu == ""
-            @error "CPU frequency not found. Ask the developers in GitHub."
+            @warn "CPU frequency not found. Ask the developers in GitHub."
             cpu = 0.0
         end
 
@@ -31,7 +31,7 @@ struct Machine
         elseif Sys.iswindows()
             os = "Windows " * string(Sys.windows_version())
         else
-            @error "OS not supported. Ask the developers in GitHub."
+            @warn "OS not supported. Ask the developers in GitHub."
         end
 
         return new(cpu, cores, ram, language, os)

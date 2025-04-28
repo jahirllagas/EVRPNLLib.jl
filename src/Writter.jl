@@ -5,10 +5,9 @@ function getXML(solution::Solution)
     sol_tag["solver"] = solution.solver
     sol_tag["optimal"] = solution.optimal
 
-    id = 0
-    for route in solution.routes
+    for (id, route) in enumerate(solution.routes)
         route_tag = ElementNode("route")
-        route_tag["id"] = id
+        route_tag["id"] = id - 1
         for node in route
             node_tag = nothing
             if node.node.type == :depot
@@ -30,7 +29,6 @@ function getXML(solution::Solution)
             link!(route_tag, node_tag)
         end
         link!(sol_tag, route_tag)
-        id += 1
     end
 
     machine_tag = ElementNode("machine")
@@ -71,7 +69,9 @@ function writeSolution(solution::Solution, file_name::String)
     xml = getXML(solution)
 
     doc = XMLDocument()
-    setroot!(doc, xml)    
+    setroot!(doc, xml)
 
-    write(file_name, doc)
+    open(file_name, "w") do io
+        prettyprint(io, doc)
+    end
 end

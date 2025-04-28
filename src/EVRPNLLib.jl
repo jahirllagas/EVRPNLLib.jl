@@ -7,8 +7,7 @@ export getTime, getTimeBySOC, findPieceByTime
 export getSOC, getSOCByTime, findPieceBySOC
 export Solution, Route, Machine
 export addNode!, addStation!, addRoute!
-export writeSolution
-export validateSolution
+export validateSolution, writeSolution
 
 const data_path = joinpath(pkgdir(EVRPNLLib), "data")
 const EPS = 1e-5

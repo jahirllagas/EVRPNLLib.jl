@@ -12,6 +12,8 @@ struct Machine
             if info[i] == "GHz"
                 cpu = parse(Float64, info[i - 1])
                 break
+            elseif endswith(info[i], "GHz\",")
+                cpu = parse(Float64, replace(info[i], "GHz\"," => ""))
             elseif info[i] == "MHz"
                 cpu = parse(Float64, info[i - 1]) / 1000.0
                 break
